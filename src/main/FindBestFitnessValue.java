@@ -37,10 +37,10 @@ public class FindBestFitnessValue {
 	private static File fileName2;
 	
 	public static void main(String[] args) throws Exception {
-		readFile();
+		run();
 	}
 	
-	public static void readFile() throws Exception{		
+	public static void run() throws Exception{		
 		createFile();
 		FileWriter fw = new FileWriter(fileName.getAbsoluteFile(), true);
 		file = new BufferedWriter(fw);
@@ -49,7 +49,7 @@ public class FindBestFitnessValue {
 		int i=0;
 		double bestFitness = 1;
 		try {
-		    BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Dipesh.DIPSYPC\\workspace\\jMetal2\\FUN"));
+		    BufferedReader in = new BufferedReader(new FileReader("FUN"));
 		  
 		    String str;
 		    
@@ -72,7 +72,7 @@ public class FindBestFitnessValue {
 	}
 	
 	public static void createFile() throws Exception{
-		fileName = new File("C:\\Personal\\practice\\comparison\\bestFitness.txt");
+		fileName = new File("bestFitness.txt");
 		
 
 		// if file does not exists, then create it
