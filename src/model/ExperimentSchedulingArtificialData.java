@@ -17,7 +17,7 @@ import simula.oclga.Search;
 public class ExperimentSchedulingArtificialData {
 
 	private DecimalFormat df;
-	private BufferedWriter file, file3;
+	private BufferedWriter file, file3, file4;
 	private ProblemScheduling problemScheduling;
 	private ProblemSchedulingSimple problemSchedulingSimple;
 	private int jobsMax;
@@ -53,7 +53,7 @@ public class ExperimentSchedulingArtificialData {
 	
 	private ReadTestCasesArtificialData readTestCasesArtificialData;
 	
-	private File fileName, fileName3;
+	private File fileName, fileName3, fileName4;
 	private static File fileName2;
 	private static BufferedWriter file2;
 
@@ -173,18 +173,22 @@ public class ExperimentSchedulingArtificialData {
 	}
 	
 	public ArrayList<TestCase> getValues_1(int count) throws Exception {
-		createFile();
+		createFile();   //write fitness
 		
 		FileWriter fw = new FileWriter(fileName.getAbsoluteFile(),true);
 		file = new BufferedWriter(fw);
 
-		createFile2();
+		createFile2(); 	//write time
 		FileWriter fw2= new FileWriter(fileName2.getAbsoluteFile(),true);
 		file2 = new BufferedWriter(fw2);
 		
-		createFile3();
+		createFile3();	//write best
 		FileWriter fw3= new FileWriter(fileName3.getAbsoluteFile(),true);
 		file3 = new BufferedWriter(fw3);
+		
+		createFile4();	//write best
+		FileWriter fw4= new FileWriter(fileName4.getAbsoluteFile(),true);
+		file4 = new BufferedWriter(fw4);
 		
 		Search[] s = new Search[] { new simula.oclga.AVM(),
 				new simula.oclga.SSGA(100, 0.75), new simula.oclga.OpOEA(),
@@ -192,10 +196,9 @@ public class ExperimentSchedulingArtificialData {
 				new simula.oclga.GreedyAlgorithm()};
 		String[] s_name = new String[] { "AVM","GA","(1+1)EA","RS","GrA"};
 		ArrayList<TestCase> tempCaseList = new ArrayList<TestCase>();
-		int counter=0;
+
 		double fitnessValue=1;
-	
-		
+
 		file.write("\r");
 		file.write("It is " + count + "  Problem: " + problem);
 		file.write("\r");
@@ -204,16 +207,15 @@ public class ExperimentSchedulingArtificialData {
 		file2.write("It is " + count + " Problem: " + problem + "\r");
 		
 		int sizeTemp =0;
-		
-
+	
 			for (int sea =0; sea < 5; sea++) {
 				//System.out.println("New starts");
 				long startTime = System.currentTimeMillis();
 				ArrayList<TestCase> tempCaseList2 = new ArrayList<TestCase>();
 				double fitnessValue2 = 1;
 				
-				for (int K = 0; K < 10; K++) {		
-					double fitnessTemValue=1;
+				for (int K = 0; K < 100; K++) {		
+					double fitnessTemValue=1; // For each algorithms
 	
 					problemScheduling = new ProblemScheduling();
 					problemScheduling.setTestCaseList(testCaseList);
@@ -228,24 +230,18 @@ public class ExperimentSchedulingArtificialData {
 					problemScheduling.setEpriority(epriority);
 					problemScheduling.setEprobability(eprobability);
 					problemScheduling.setEconsequence(econsequence);
-					problemScheduling.setMax(counter);
-						
+			
+					s[sea].setMaxIterations(20000);
 					
-						s[sea].setMaxIterations(20000);
 					Search.validateConstraints(problemScheduling);
 					int[] v_1 = s[sea].search(problemScheduling);
 						
 					//System.out.println("max is " + K + " "+ problemScheduling.getMax());
 					DecimalFormat f = new DecimalFormat("##.00000");
-					file.write(f.format(problemScheduling.getInitalFitnessValue()) + "\t"); //
+					file.write(f.format(problemScheduling.getInitalFitnessValue()) + "\t"); // Fitness value for each algorithm
 					
-					if (counter<=problemScheduling.getMax()){
-						counter=problemScheduling.getMax();
-						//System.out.println("counter is  is " + K+ " " +counter);
-					}
+					//The best fitness value as one only used in the tool
 					if (fitnessValue>problemScheduling.getInitalFitnessValue()){
-						int size = tempCaseList.size()-1;
-					
 						tempCaseList= problemScheduling.caseList;
 						fitnessValue = problemScheduling.getInitalFitnessValue();
 						//System.out.println("The name is" + s[sea].getShortName());
@@ -319,6 +315,17 @@ public class ExperimentSchedulingArtificialData {
 			fileName3.createNewFile();
 		}
 	}
+	
+	public  void createFile4() throws Exception{
+		fileName4 = new File("test" + problem + " efficiency.txt");
+		
+
+		// if file does not exists, then create it
+		if (!fileName4.exists()) {
+			fileName4.createNewFile();
+		}
+	}
+	
 	
 	public ArrayList<TestCase> getValues_2() throws Exception {
 		createFile();
