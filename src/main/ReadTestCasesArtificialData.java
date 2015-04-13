@@ -27,7 +27,7 @@ import model.TestCase;
 public class ReadTestCasesArtificialData {
 
 
-	public TestCase testCase[] = new TestCase[100];
+	public TestCase testCase[] = new TestCase[38];
 	private ArrayList<TestCase> testCaseList = new ArrayList<>() ;
 //	public void main(String[] args) throws Exception {
 //		readFile();
@@ -36,7 +36,7 @@ public class ReadTestCasesArtificialData {
 	
 	public void readFile(){		
 		try {
-		    BufferedReader in = new BufferedReader(new FileReader("files/case100.txt"));
+		    BufferedReader in = new BufferedReader(new FileReader("files/case38.txt"));
 		    String str;
 		    int i=0;
 		    while ((str = in.readLine()) != null){
@@ -69,27 +69,11 @@ public class ReadTestCasesArtificialData {
 		    	consequence.setName(details[4]);
 		    	testCase[i].setConsequence(consequence);
 		    	
-		    	testCase[i].setTimeExecution(Double.parseDouble(details[5]));
-		    	
-		    	context.setName(details[6]);
-		    	testCase[i].setContext(context);
-		    	
-		    	rcuType.setName(details[7]);
-		    	testCase[i].setRcuType(rcuType);
-		    	
-		    	modelConstraint.setName(details[8]);
-		    	testCase[i].setModelConstraint(modelConstraint);
-		    	
-		    	effect.setName(details[9]);
-		    	testCase[i].setEffect(effect);
-		    	
-		    	model.setName(details[10]);
-		    	testCase[i].setModel(model);
-
-		    	risk.setName(details[11]);
+		    	risk.setName(details[5]);
 		    	testCase[i].setRisk(risk);
 		    	
-		    	
+		    	testCase[i].setTimeExecution(Double.parseDouble(details[6]));
+
 		    	i++;
 		    }
 		    in.close();
@@ -99,6 +83,7 @@ public class ReadTestCasesArtificialData {
 	}
 	
 	public ArrayList<TestCase> getTestCaseContents(int caseNumber, double priority, double probability, double consequence){
+		testCaseList= new ArrayList<TestCase>();
 		for (int i=0;i<caseNumber;i++){		
 			double priorityValue, probabilityValue, consequenceValue;
 			
@@ -140,6 +125,7 @@ public class ReadTestCasesArtificialData {
 	        	return Double.compare(testCase1.getFitnessGrA(), testCase2.getFitnessGrA());
 	        }
 	    });
+
 		return testCaseList;
 		
 	}

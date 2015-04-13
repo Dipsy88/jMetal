@@ -17,9 +17,8 @@ import simula.oclga.Search;
 public class ExperimentSchedulingArtificialData {
 
 	private DecimalFormat df;
-	private BufferedWriter file, file3, file4;
+	private BufferedWriter file1, file2, file3, file4, file5, file6;
 	private ProblemScheduling problemScheduling;
-	private ProblemSchedulingSimple problemSchedulingSimple;
 	private int jobsMax;
 	private int jobsMin;
 	private double maxTime;
@@ -34,14 +33,23 @@ public class ExperimentSchedulingArtificialData {
 		this.timeWeight = timeWeight;
 	}
 
-	private double priority;
-	private double probability;
-	private double consequence;
+	private double priorityWeight;
+	private double probabilityWeight;
+	private double consequenceWeight;
 	private String context;
-	private double risk;
-	private double epriority;
-	private double eprobability;
-	private double econsequence;
+	private double riskWeight;
+	private double epriorityWeight;
+	private double eprobabilityWeight;
+	private double econsequenceWeight;
+	private double eriskWeight;
+	public double getEriskWeight() {
+		return eriskWeight;
+	}
+
+	public void setEriskWeight(double eriskWeight) {
+		this.eriskWeight = eriskWeight;
+	}
+
 	private String component;
 	private String constraint;
 	private String effect;
@@ -53,9 +61,7 @@ public class ExperimentSchedulingArtificialData {
 	
 	private ReadTestCasesArtificialData readTestCasesArtificialData;
 	
-	private File fileName, fileName3, fileName4;
-	private static File fileName2;
-	private static BufferedWriter file2;
+	private File fileName1, fileName2, fileName3, fileName4, fileName5, fileName6;
 
 	public double getTotal() {
 		return total;
@@ -65,36 +71,36 @@ public class ExperimentSchedulingArtificialData {
 		this.total = total;
 	}
 	
-	public double getRisk() {
-		return risk;
+	public double getRiskWeight() {
+		return riskWeight;
 	}
 
-	public void setRisk(double risk) {
-		this.risk = risk;
+	public void setRiskWeight(double riskWeight) {
+		this.riskWeight = riskWeight;
 	}
 	
-	public double getEpriority() {
-		return epriority;
+	public double getEpriorityWeight() {
+		return epriorityWeight;
 	}
 
-	public void setEpriority(double epriority) {
-		this.epriority = epriority;
+	public void setEpriorityWeight(double epriorityWeight) {
+		this.epriorityWeight = epriorityWeight;
 	}
 
-	public double getEprobability() {
-		return eprobability;
+	public double getEprobabilityWeight() {
+		return eprobabilityWeight;
 	}
 
-	public void setEprobability(double eprobability) {
-		this.eprobability = eprobability;
+	public void setEprobabilityWeight(double eprobabilityWeight) {
+		this.eprobabilityWeight = eprobabilityWeight;
 	}
 
-	public double getEconsequence() {
-		return econsequence;
+	public double getEconsequenceWeight() {
+		return econsequenceWeight;
 	}
 
-	public void setEconsequence(double econsequence) {
-		this.econsequence = econsequence;
+	public void setEconsequenceWeight(double econsequenceWeight) {
+		this.econsequenceWeight = econsequenceWeight;
 	}
 
 	public String getContext() {
@@ -129,28 +135,28 @@ public class ExperimentSchedulingArtificialData {
 		this.effect = effect;
 	}
 
-	public double getPriority() {
-		return priority;
+	public double getPriorityWeight() {
+		return priorityWeight;
 	}
 
-	public void setPriority(double priority) {
-		this.priority = priority;
+	public void setPriorityWeight(double priorityWeight) {
+		this.priorityWeight = priorityWeight;
 	}
 
-	public double getProbability() {
-		return probability;
+	public double getProbabilityWeight() {
+		return probabilityWeight;
 	}
 
-	public void setProbability(double probability) {
-		this.probability = probability;
+	public void setProbabilityWeight(double probabilityWeight) {
+		this.probabilityWeight = probabilityWeight;
 	}
 
-	public double getConsequence() {
-		return consequence;
+	public double getConsequenceWeight() {
+		return consequenceWeight;
 	}
 
-	public void setConsequence(double consequence) {
-		this.consequence = consequence;
+	public void setConsequence(double consequenceWeight) {
+		this.consequenceWeight = consequenceWeight;
 	}
 
 
@@ -162,33 +168,27 @@ public class ExperimentSchedulingArtificialData {
 		readTestCasesArtificialData = new ReadTestCasesArtificialData();
 	}
 	
-	public void createFile() throws Exception{
-		fileName = new File("test_" + problem + ".txt");
-		
 
-		// if file does not exists, then create it
-		if (!fileName.exists()) {
-			fileName.createNewFile();
-		}
-	}
 	
-	public ArrayList<TestCase> getValues_1(int count) throws Exception {
-		createFile();   //write fitness
-		
-		FileWriter fw = new FileWriter(fileName.getAbsoluteFile(),true);
-		file = new BufferedWriter(fw);
+	public ArrayList<TestCase> getValues_1(int count, int problem) throws Exception {
+		if (problem==1){
+			createFile1();   //write fitness	
+			FileWriter fw1 = new FileWriter(fileName1.getAbsoluteFile(),true);
+			file1 = new BufferedWriter(fw1);
 
-		createFile2(); 	//write time
-		FileWriter fw2= new FileWriter(fileName2.getAbsoluteFile(),true);
-		file2 = new BufferedWriter(fw2);
-		
-		createFile3();	//write best
-		FileWriter fw3= new FileWriter(fileName3.getAbsoluteFile(),true);
-		file3 = new BufferedWriter(fw3);
-		
-		createFile4();	//write best
-		FileWriter fw4= new FileWriter(fileName4.getAbsoluteFile(),true);
-		file4 = new BufferedWriter(fw4);
+			createFile2(); 	//write time
+			FileWriter fw2= new FileWriter(fileName2.getAbsoluteFile(),true);
+			file2 = new BufferedWriter(fw2);
+		}else if (problem ==2){
+			createFile3();	//write best
+			FileWriter fw1= new FileWriter(fileName3.getAbsoluteFile(),true);
+			file1 = new BufferedWriter(fw1);
+			
+			createFile4();   //write fitness	
+			FileWriter fw2 = new FileWriter(fileName4.getAbsoluteFile(),true);
+			file2 = new BufferedWriter(fw2);
+		}
+
 		
 		Search[] s = new Search[] { new simula.oclga.AVM(),
 				new simula.oclga.SSGA(100, 0.75), new simula.oclga.OpOEA(),
@@ -199,9 +199,9 @@ public class ExperimentSchedulingArtificialData {
 
 		double fitnessValue=1;
 
-		file.write("\r");
-		file.write("It is " + count + "  Problem: " + problem);
-		file.write("\r");
+		file1.write("\r");
+		file1.write("It is " + count + "  Problem: " + problem);
+		file1.write("\r");
 		
 		file2.write("\r"); 
 		file2.write("It is " + count + " Problem: " + problem + "\r");
@@ -211,9 +211,7 @@ public class ExperimentSchedulingArtificialData {
 			for (int sea =0; sea < 5; sea++) {
 				//System.out.println("New starts");
 				long startTime = System.currentTimeMillis();
-				ArrayList<TestCase> tempCaseList2 = new ArrayList<TestCase>();
-				double fitnessValue2 = 1;
-				
+			
 				for (int K = 0; K < 100; K++) {		
 					double fitnessTemValue=1; // For each algorithms
 	
@@ -223,13 +221,14 @@ public class ExperimentSchedulingArtificialData {
 					problemScheduling.setJobsMin(jobsMin);
 					problemScheduling.setTimeBudget(maxTime);
 					problemScheduling.setTimeWeight(timeWeight);
-					problemScheduling.setPriority(priority);
-					problemScheduling.setProbability(probability);
-					problemScheduling.setConsequence(consequence);
-					problemScheduling.setRisk(risk);
-					problemScheduling.setEpriority(epriority);
-					problemScheduling.setEprobability(eprobability);
-					problemScheduling.setEconsequence(econsequence);
+					problemScheduling.setPriorityWeight(priorityWeight);
+					problemScheduling.setProbabilityWeight(probabilityWeight);
+					problemScheduling.setConsequenceWeight(consequenceWeight);
+					problemScheduling.setRiskWeight(riskWeight);
+					problemScheduling.setEpriorityWeight(epriorityWeight);
+					problemScheduling.setEprobabilityWeight(eprobabilityWeight);
+					problemScheduling.setEconsequenceWeight(econsequenceWeight);
+					problemScheduling.setEriskWeight(eriskWeight);
 			
 					s[sea].setMaxIterations(20000);
 					
@@ -238,20 +237,23 @@ public class ExperimentSchedulingArtificialData {
 						
 					//System.out.println("max is " + K + " "+ problemScheduling.getMax());
 					DecimalFormat f = new DecimalFormat("##.00000");
-					file.write(f.format(problemScheduling.getInitalFitnessValue()) + "\t"); // Fitness value for each algorithm
+					file1.write(f.format(problemScheduling.getInitalFitnessValue()) + "\t"); // Fitness value for each algorithm
 					
-					//The best fitness value as one only used in the tool
+					/*
+					//The best fitness value from all the algorithms as one only used in the tool
 					if (fitnessValue>problemScheduling.getInitalFitnessValue()){
 						tempCaseList= problemScheduling.caseList;
 						fitnessValue = problemScheduling.getInitalFitnessValue();
 						//System.out.println("The name is" + s[sea].getShortName());
 					}
+					*/
 					
 					if (fitnessTemValue>problemScheduling.getInitalFitnessValue()){
 						fitnessTemValue = problemScheduling.getInitalFitnessValue();
 						sizeTemp = problemScheduling.caseList.size();
 					}
 					
+					/*
 					if (fitnessValue2>problemScheduling.getInitalFitnessValue()){
 						int size = tempCaseList.size()-1;
 					
@@ -260,10 +262,11 @@ public class ExperimentSchedulingArtificialData {
 						//System.out.println("The name is" + s[sea].getShortName());
 					}
 
+					 */
 				}	
 				long endTime   = System.currentTimeMillis();
 				long totalTime = endTime - startTime;
-				long timeOne = totalTime/10;
+				long timeOne = totalTime/100;
 			//	System.out.println("The name is " + s[sea].getShortName());
 				//System.out.println("Time is " + timeOne);
 				
@@ -271,29 +274,21 @@ public class ExperimentSchedulingArtificialData {
 				
 				file2.flush();
 						//file.write(df.format(m) + "\t"); //		
-				file.write("\r");
-				file.flush();
-				
-				file3.write("Algorithm is " + s[sea].getShortName() + "\n");
+				file1.write("\r");
+				file1.flush();
 
-				
-				for (int k=0;k<tempCaseList2.size();k++){
-					file3.write(tempCaseList2.get(k).getCaseName() + "\t");
-				}
-				file3.write("\r");
-				file3.flush();
-			}	
-		
-			file3.write("\n" + "Best is" + "\n");
-
-			
-			for (int i=0;i<tempCaseList.size();i++){
-				file3.write(tempCaseList.get(i).getCaseName() + "\t");
-			}
-			
-			file3.flush();
-			
+			}			
 		return tempCaseList;
+	}
+	
+	public void createFile1() throws Exception{
+		fileName1 = new File("test_" + problem + "Fitness.txt");
+		
+
+		// if file does not exists, then create it
+		if (!fileName1.exists()) {
+			fileName1.createNewFile();
+		}
 	}
 	
 	public  void createFile2() throws Exception{
@@ -307,7 +302,7 @@ public class ExperimentSchedulingArtificialData {
 	}
 	
 	public  void createFile3() throws Exception{
-		fileName3 = new File("test" + problem + " cases.txt");
+		fileName3 = new File("2test_" + problem + " Fitness.txt");
 		
 
 		// if file does not exists, then create it
@@ -317,62 +312,13 @@ public class ExperimentSchedulingArtificialData {
 	}
 	
 	public  void createFile4() throws Exception{
-		fileName4 = new File("test" + problem + " efficiency.txt");
+		fileName4 = new File("2test" + problem + " time.txt");
 		
 
 		// if file does not exists, then create it
 		if (!fileName4.exists()) {
 			fileName4.createNewFile();
 		}
-	}
-	
-	
-	public ArrayList<TestCase> getValues_2() throws Exception {
-		createFile();
-		
-		FileWriter fw = new FileWriter(fileName.getAbsoluteFile());
-		file = new BufferedWriter(fw);
-		
-		Search[] s = new Search[] { new simula.oclga.AVM(),
-				new simula.oclga.SSGA(100, 0.75), new simula.oclga.OpOEA(),
-				new simula.oclga.RandomSearch(),
-				new simula.oclga.GreedyAlgorithm()};
-		String[] s_name = new String[] { "AVM","GA","(1+1)EA","RS","GrA"};
-		ArrayList<TestCase> tempCaseList = new ArrayList<TestCase>();
-		int counter=0;
-		double fitnessValue=1;
-
-		for (int sea = 0; sea < 5; sea++) {
-			long startTime = System.currentTimeMillis();
-			for (int K = 0; K < 10; K++) {	
-				problemSchedulingSimple = new ProblemSchedulingSimple();
-			
-				problemSchedulingSimple.setTestCaseList(testCaseList);
-				problemSchedulingSimple.setJobsMax(jobsMax);
-				problemSchedulingSimple.setJobsMin(jobsMin);
-				problemSchedulingSimple.setTimeBudget(maxTime);			
-				problemSchedulingSimple.calculate();
-	
-				s[sea].setMaxIterations(20000);
-				Search.validateConstraints(problemSchedulingSimple);
-				int[] v_1 = s[sea].search(problemSchedulingSimple);
-				
-				file.write(problemSchedulingSimple.getInitalFitnessValue() + "\t"); //
-				if (fitnessValue>problemSchedulingSimple.getInitalFitnessValue()){
-				
-					tempCaseList= problemSchedulingSimple.caseList;
-					fitnessValue = problemSchedulingSimple.getInitalFitnessValue();
-				}
-			}
-			
-			long endTime   = System.currentTimeMillis();
-			long totalTime = endTime - startTime;
-			
-			file.write("\r");
-			file.flush();
-		}
-		
-		return tempCaseList;
 	}
 	
 
@@ -399,12 +345,12 @@ public class ExperimentSchedulingArtificialData {
 	public void setMaxTime(double maxTime) {
 		this.maxTime = maxTime;
 	}
-	public 	ArrayList<TestCase> run(int counter){
+	public 	ArrayList<TestCase> run(int counter, int problem){
 		ArrayList<TestCase> tempCaseList = new ArrayList<TestCase>();
 		getTestCases();
 //		if (this.total>0){
 			try {
-				tempCaseList= getValues_1(counter);
+				tempCaseList= getValues_1(counter, problem);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -416,9 +362,11 @@ public class ExperimentSchedulingArtificialData {
 
 	public void getTestCases(){
 		readTestCasesArtificialData.readFile();
-		testCaseList= readTestCasesArtificialData.getTestCaseContents(100, epriority, eprobability, econsequence);
+		testCaseList= new ArrayList<TestCase>();
+		testCaseList= readTestCasesArtificialData.getTestCaseContents(38, epriorityWeight, eprobabilityWeight, econsequenceWeight);
 		
 		jobsMax = testCaseList.size();
+		
 		jobsMin = 0;
 	}
 

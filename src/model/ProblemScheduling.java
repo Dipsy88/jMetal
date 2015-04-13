@@ -23,13 +23,22 @@ public class ProblemScheduling implements Problem{
 		this.timeWeight = timeWeight;
 	}
 
-	private double priority;
-	private double probability;
-	private double consequence;
-	private double risk;
-	private double epriority;
-	private double eprobability;
-	private double econsequence;
+	private double priorityWeight;
+	private double probabilityWeight;
+	private double consequenceWeight;
+	private double riskWeight;
+	private double epriorityWeight;
+	private double eprobabilityWeight;
+	private double econsequenceWeight;
+	private double eriskWeight;
+	public double getEriskWeight() {
+		return eriskWeight;
+	}
+
+	public void setEriskWeight(double eriskWeight) {
+		this.eriskWeight = eriskWeight;
+	}
+
 	private int max;
 	private double tm = 0;
 	private String context;
@@ -43,36 +52,36 @@ public class ProblemScheduling implements Problem{
 		this.initalFitnessValue = initalFitnessValue;
 	}
 
-	public double getRisk() {
-		return risk;
+	public double getRiskWeight() {
+		return riskWeight;
 	}
 
-	public void setRisk(double risk) {
-		this.risk = risk;
+	public void setRiskWeight(double riskWeight) {
+		this.riskWeight = riskWeight;
 	}
 
-	public double getEpriority() {
-		return epriority;
+	public double getEpriorityWeight() {
+		return epriorityWeight;
 	}
 
-	public void setEpriority(double epriority) {
-		this.epriority = epriority;
+	public void setEpriorityWeight(double epriorityWeight) {
+		this.epriorityWeight = epriorityWeight;
 	}
 
-	public double getEprobability() {
-		return eprobability;
+	public double getEprobabilityWeight() {
+		return eprobabilityWeight;
 	}
 
-	public void setEprobability(double eprobability) {
-		this.eprobability = eprobability;
+	public void setEprobabilityWeight(double eprobabilityWeight) {
+		this.eprobabilityWeight = eprobabilityWeight;
 	}
 
-	public double getEconsequence() {
-		return econsequence;
+	public double getEconsequenceWeight() {
+		return econsequenceWeight;
 	}
 
-	public void setEconsequence(double econsequence) {
-		this.econsequence = econsequence;
+	public void setEconsequenceWeight(double econsequenceWeight) {
+		this.econsequenceWeight = econsequenceWeight;
 	}
 
 	public String getContext() {
@@ -99,28 +108,28 @@ public class ProblemScheduling implements Problem{
 		this.max = max;
 	}
 
-	public double getPriority() {
-		return priority;
+	public double getPriorityWeight() {
+		return priorityWeight;
 	}
 
-	public void setPriority(double priority) {
-		this.priority = priority;
+	public void setPriorityWeight(double priorityWeight) {
+		this.priorityWeight = priorityWeight;
 	}
 
-	public double getProbability() {
-		return probability;
+	public double getProbabilityWeight() {
+		return probabilityWeight;
 	}
 
-	public void setProbability(double probability) {
-		this.probability = probability;
+	public void setProbabilityWeight(double probabilityWeight) {
+		this.probabilityWeight = probabilityWeight;
 	}
 
-	public double getConsequence() {
-		return consequence;
+	public double getConsequenceWeight() {
+		return consequenceWeight;
 	}
 
-	public void setConsequence(double consequence) {
-		this.consequence = consequence;
+	public void setConsequenceWeight(double consequenceWeight) {
+		this.consequenceWeight = consequenceWeight;
 	}
 
 	public double getTimeBudget() {
@@ -161,9 +170,9 @@ public class ProblemScheduling implements Problem{
 		ArrayList<TestCase> tempCase2 = new ArrayList<TestCase>();
 		
 		int count =0;
-		double temptime =0,priorityValue=0, probabilityValue=0, consequenceValue =0, riskValue=0, ePriorityValue=0, eProbabilityValue=0, eConsequenceValue =0;
-		double prioritySum =0, probabilitySum =0, consequenceSum =0, riskSum =0, ePrioritySum = 0, eProbabilitySum = 0, eConsequenceSum = 0;
-		double overallProbability=0, overallPriority=0, overallConsequence=0, overallRisk=0, overallEProbability=0, overallEPriority=0, overallEConsequence=0;
+		double temptime =0,priorityValue=0, probabilityValue=0, consequenceValue =0, riskValue=0, ePriorityValue=0, eProbabilityValue=0, eConsequenceValue =0, eRiskValue=0;
+		double prioritySum =0, probabilitySum =0, consequenceSum =0, riskSum =0, ePrioritySum = 0, eProbabilitySum = 0, eConsequenceSum = 0, eRiskSum=0;
+		double overallProbability=0, overallPriority=0, overallConsequence=0, overallRisk=0, overallEProbability=0, overallEPriority=0, overallEConsequence=0, overallERisk=0;
 		
 		for (int i=0;i<testCaseList.size();i++){
 			//System.out.println("Value " + i + "is " + v[i]);			
@@ -176,7 +185,8 @@ public class ProblemScheduling implements Problem{
 			double timeTemp=0;
 			Priority priorityTemp = new Priority();
 			Probability probabilityTemp = new Probability();	
-			Consequence consequenceTemp = new Consequence();	
+			Consequence consequenceTemp = new Consequence();
+			Risk riskTemp = new Risk();
 			TestCase tempCase = new TestCase();
 			
 			tempCase = tempCase2.get(j);	
@@ -186,6 +196,7 @@ public class ProblemScheduling implements Problem{
 			priorityTemp = tempCase.getPriority();
 			probabilityTemp = tempCase.getProbability();
 			consequenceTemp = tempCase.getConsequence();
+			riskTemp = tempCase.getRisk();
 	
 			if (priorityTemp.getName().equalsIgnoreCase("higher")||priorityTemp.getName().equalsIgnoreCase("high")||priorityTemp.getName().equalsIgnoreCase("medium")
 					||priorityTemp.getName().equalsIgnoreCase("low")||priorityTemp.getName().equalsIgnoreCase("lower"))
@@ -203,6 +214,113 @@ public class ProblemScheduling implements Problem{
 				consequenceValue = convertConsequence(consequenceTemp);			
 			else 
 				consequenceValue =0;
+			
+			if (riskTemp.getName().equalsIgnoreCase("high") || riskTemp.getName().equalsIgnoreCase("medium") || riskTemp.getName().equalsIgnoreCase("low"))
+				riskValue= convertRisk(riskTemp);
+			else
+				riskValue= 0 ;
+
+			count++;
+			tempCaseList.add(tempCase);
+			prioritySum+=  priorityValue;
+			probabilitySum += probabilityValue;
+			consequenceSum += consequenceValue;
+			riskSum += riskValue;
+			
+			ePriorityValue = Nor(priorityValue/timeTemp);
+			eProbabilityValue = Nor(probabilityValue/timeTemp);
+			eConsequenceValue = Nor(consequenceValue/timeTemp);
+			eRiskValue = Nor(riskValue/timeTemp);
+			
+			ePrioritySum += ePriorityValue;
+			eProbabilitySum += eProbabilityValue;
+			eConsequenceSum += eConsequenceValue;
+			eRiskSum += eRiskValue;
+		}
+		overallPriority = prioritySum/count;
+		overallProbability = probabilitySum/count;
+		overallConsequence = consequenceSum/count;
+		overallRisk = riskSum/count;
+		
+		overallEPriority = ePrioritySum/count;
+		overallEProbability = eProbabilitySum/count;
+		overallEConsequence = eConsequenceSum/count;
+		overallERisk= eRiskSum/count;
+
+		double time =0;
+
+		time = 1-Nor(Math.abs(temptime-timeBudget));
+
+		//calculate fitness function
+		tm =1- (timeWeight*time+ priorityWeight*overallPriority + probabilityWeight*overallProbability + consequenceWeight*overallConsequence + 
+				riskWeight*overallRisk + epriorityWeight*overallEPriority + eprobabilityWeight*overallEProbability + econsequenceWeight*overallEConsequence+
+				eriskWeight*overallERisk);
+
+		if (initalFitnessValue>tm && count != 0 ){
+			initalFitnessValue=tm;
+			caseList=tempCaseList;		
+
+		}		
+		counter++;
+		return tm;		 
+	}
+	
+	
+	public double getFitnessEfficiency(int[] v) { //it would be better to rerun a list or String[], the first value is fitness function, the others are the jobid of selected test cases.	
+		ArrayList<TestCase> tempCaseList = new ArrayList<TestCase>();
+		
+		ArrayList<TestCase> tempCase2 = new ArrayList<TestCase>();
+		
+		int count =0;
+		double temptime =0,priorityValue=0, probabilityValue=0, consequenceValue =0, riskValue=0, ePriorityValue=0, eProbabilityValue=0, eConsequenceValue =0, eRiskValue=0;
+		double prioritySum =0, probabilitySum =0, consequenceSum =0, riskSum =0, ePrioritySum = 0, eProbabilitySum = 0, eConsequenceSum = 0, eRiskSum = 0;
+		double overallProbability=0, overallPriority=0, overallConsequence=0, overallRisk=0, overallEProbability=0, overallEPriority=0, overallEConsequence=0, overallERisk=0;
+		
+		for (int i=0;i<testCaseList.size();i++){
+			//System.out.println("Value " + i + "is " + v[i]);			
+				if (v[i]==1){					
+					tempCase2.add(testCaseList.get(i));					
+				}
+		}
+		// calculating fitness function values
+		for (int j=0;j<tempCase2.size();j++){
+			double timeTemp=0;
+			Priority priorityTemp = new Priority();
+			Probability probabilityTemp = new Probability();	
+			Consequence consequenceTemp = new Consequence();	
+			Risk riskTemp = new Risk();
+			TestCase tempCase = new TestCase();
+			
+			tempCase = tempCase2.get(j);	
+			
+			timeTemp = tempCase.getTimeExecution();
+			temptime += timeTemp;
+			priorityTemp = tempCase.getPriority();
+			probabilityTemp = tempCase.getProbability();
+			consequenceTemp = tempCase.getConsequence();
+			riskTemp = tempCase.getRisk();
+	
+			if (priorityTemp.getName().equalsIgnoreCase("higher")||priorityTemp.getName().equalsIgnoreCase("high")||priorityTemp.getName().equalsIgnoreCase("medium")
+					||priorityTemp.getName().equalsIgnoreCase("low")||priorityTemp.getName().equalsIgnoreCase("lower"))
+				priorityValue= convertPriority(priorityTemp);
+			else 
+				priorityValue=0;
+			
+			if (probabilityTemp.getName().equalsIgnoreCase("high") || probabilityTemp.getName().equalsIgnoreCase("medium") || probabilityTemp.getName().equalsIgnoreCase("low"))
+				probabilityValue= convertProbability(probabilityTemp);
+			else
+				probabilityValue= 0 ;
+			
+			if (consequenceTemp.getName().equalsIgnoreCase("higher")||consequenceTemp.getName().equalsIgnoreCase("high")||consequenceTemp.getName().equalsIgnoreCase("medium")
+					||consequenceTemp.getName().equalsIgnoreCase("low")||consequenceTemp.getName().equalsIgnoreCase("lower"))
+				consequenceValue = convertConsequence(consequenceTemp);			
+			else 
+				consequenceValue =0;
+			
+			if (riskTemp.getName().equalsIgnoreCase("high") || riskTemp.getName().equalsIgnoreCase("medium") || riskTemp.getName().equalsIgnoreCase("low"))
+				riskValue= convertRisk(riskTemp);
+			else
+				riskValue= 0 ;
 			
 
 			count++;
@@ -235,7 +353,7 @@ public class ProblemScheduling implements Problem{
 		
 		//calculate fitness function
 	//	tm =1- (priority*overallPriority + probability*overallProbability + consequence*overallConsequence + timeWeight*time);
-		tm =1- (epriority*overallEPriority + eprobability*overallEProbability + econsequence*overallEConsequence + timeWeight*time);
+		tm =1- (timeWeight*time+ epriorityWeight*overallEPriority + eprobabilityWeight*overallEProbability + econsequenceWeight*overallEConsequence );
 	
 		if (initalFitnessValue>tm && count != 0 ){
 			initalFitnessValue=tm;
@@ -249,7 +367,6 @@ public class ProblemScheduling implements Problem{
 		counter++;
 		return tm;		
 	}
-	
 	
 	public double convertPriority(Priority priority){
 		double priorityNum=0;
@@ -317,7 +434,6 @@ public class ProblemScheduling implements Problem{
 	public int[][] getConstraints() {
 		// TODO Auto-generated method stub
 		int valuesOfConstraints[][] = new int[testCaseList.size()][3];
-		
 		for (int i=0;i<testCaseList.size();i++){
 			valuesOfConstraints[i][0] = 0;
 			valuesOfConstraints[i][1] = 1;

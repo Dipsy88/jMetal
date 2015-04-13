@@ -1,0 +1,38 @@
+0	High temperature test	high	low	higher	high	8
+1	High temperature test with extended limit	medium	low	medium	medium	8
+2	High temperature test to the limit	lower	medium	medium	medium	8
+3	Power supply variation test	higher	medium	high	medium	2
+4	Power supply variation test with extended limit	high	high	high	high	2
+5	Power supply test by interrupting the power	high	high	medium	high	2
+6	Power supply variation test to the limit	medium	medium	medium	medium	2
+7	Power supply test with redundancy	higher	low	higher	high	2
+8	Voltage variation test	medium	medium	medium	medium	6
+9	Startup current test	high	medium	medium	medium	4
+10	Startup current test at different voltage	high	medium	high	medium	4
+11	Heat dissipation at voltage limits	low	low	low	low	1
+12	Shutting down generates alarm	low	medium	higher	high	1
+13	Power supply test with two extreme voltage at high and low end	low	low	lower	low	1
+14	Reverse polarity test	medium	high	medium	high	1
+15	Checking time for the slave to be master	medium	low	low	low	2
+16	RCU and RBUS connection test 	high	low	high	medium	1
+17	RCU and RIO connection test	high	low	high	medium	5
+18	Failure rates per channel level	higher	low	higher	high	8
+19	Low temperature test	high	low	higher	high	8
+20	Low temperature test with extended limit	medium	low	low	low	8
+21	Low temperature test to the limit	lower	low	lower	low	2
+22	Voltage variation test with extended limit	medium	low	low	low	2
+23	Voltage variation test to the limit	lower	medium	lower	medium	2
+24	Startup current test with extended voltage limits	medium	medium	low	medium	4
+25	Startup current test to the voltage limits	low	medium	lower	medium	4
+26	Heat dissipation with extended voltage limits	low	medium	low	medium	4
+27	Heat dissipation to the voltage limits	low	medium	lower	medium	4
+28	RCU and application start without any faults after pressing the reset button	medium	medium	high	medium	1
+29	RBUS transmission signal test	high	medium	higher	high	4
+30	RCU and RIO connection test for alarms	high	medium	high	medium	1
+31	Decoding NMEA telegrams in RCU from RSER modules	high	medium	high	medium	0.5
+32	Unplug one of the RSER to the RCU	low	medium	low	medium	0.5
+33	Remove one of the REDNET interface	higher	medium	higher	high	0.5
+34	Remove one of the power cable to the RCU	high	medium	high	medium	0.5
+35	Remove one of the field device from the RCU	low	medium	medium	medium	0.5
+36	Remove Ethernet cable from the RCU	higher	medium	high	medium	0.5
+37	NetStorm on Net interface connected to the RCU	high	medium	medium	medium	0.5
