@@ -312,7 +312,7 @@ public class ExperimentSchedulingArtificialData {
 	}
 	
 	public  void createFile4() throws Exception{
-		fileName4 = new File("2test" + problem + " time.txt");
+		fileName4 = new File("2test2" + problem + " time.txt");
 		
 
 		// if file does not exists, then create it

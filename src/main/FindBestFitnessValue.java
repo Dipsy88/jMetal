@@ -36,12 +36,12 @@ public class FindBestFitnessValue {
 	private static File fileName;
 	private static File fileName2;
 	
-	public static void main(String[] args) throws Exception {
-		run();
-	}
+//	public static void main(String[] args) throws Exception {
+//		run("FUN");
+//	}
 	
-	public static void run() throws Exception{		
-		createFile();
+	public static void run(String inputFile, String out, int count) throws Exception{		
+		createFile(out);
 		FileWriter fw = new FileWriter(fileName.getAbsoluteFile(), true);
 		file = new BufferedWriter(fw);
 		
@@ -49,7 +49,7 @@ public class FindBestFitnessValue {
 		int i=0;
 		double bestFitness = 1;
 		try {
-		    BufferedReader in = new BufferedReader(new FileReader("FUN"));
+		    BufferedReader in = new BufferedReader(new FileReader(inputFile));
 		  
 		    String str;
 		    
@@ -63,7 +63,7 @@ public class FindBestFitnessValue {
 		    		bestFitness = Double.parseDouble(details[4]);
 
 		    }
-		    file.write("Best fitness is " + bestFitness + "\n");
+		    file.write(count + " Best fitness is " + bestFitness + "\n");
 	    	file.flush();
 		    in.close();
 		} catch (IOException e) {
@@ -71,9 +71,8 @@ public class FindBestFitnessValue {
 		
 	}
 	
-	public static void createFile() throws Exception{
-		fileName = new File("bestFitness.txt");
-		
+	public static void createFile(String out) throws Exception{
+		fileName = new File(out);	
 
 		// if file does not exists, then create it
 		if (!fileName.exists()) {

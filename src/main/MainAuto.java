@@ -104,8 +104,7 @@ public class MainAuto {
 				calculate (experimentSchedulingArtificialData, time, timeWeight, priorityWeight, 0, 0, riskWeight, 0, 0, 0, 0,counter,1);
 				if (total == 0){
 					priorityWeight = 0;
-					probabilityWeight = 0;
-					consequenceWeight = 0;			
+					riskWeight = 0;		
 				}
 				counter++;
 			}
@@ -139,8 +138,8 @@ public class MainAuto {
 						eprobabilityWeight = eprobabilityWeight/total * 0.8;
 						econsequenceWeight = econsequenceWeight/total * 0.8;
 					}
-					calculate (experimentSchedulingArtificialData, time, timeWeight, epriorityWeight, eprobabilityWeight, 
-							econsequenceWeight, 0, 0, 0, 0, 0,counter,2);	
+					calculate (experimentSchedulingArtificialData, time, timeWeight, 0, 0,0,
+							0, epriorityWeight, eprobabilityWeight, econsequenceWeight, 0,counter,2);	
 					if (total == 0){
 						epriorityWeight = 0;
 						eprobabilityWeight = 0;
@@ -165,7 +164,7 @@ public class MainAuto {
 					epriorityWeight = epriorityWeight/total * 0.8;
 					eriskWeight = eriskWeight/total * 0.8;
 				}
-				calculate (experimentSchedulingArtificialData, time, timeWeight, epriorityWeight, 0, 0, eriskWeight, 0, 0, 0, 0,counter,2);
+				calculate (experimentSchedulingArtificialData, time, timeWeight, 0, 0, 0, 0, epriorityWeight, 0, 0, eriskWeight,counter,2);
 				if (total == 0){
 					epriorityWeight = 0;
 					eriskWeight = 0;		
