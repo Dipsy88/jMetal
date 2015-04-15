@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.FileHandler;
@@ -38,6 +39,8 @@ public class MainAutoNSGAII {
 	private static String[] econsequenceG = {"0", "25", "50", "75", "100"};
 	private static String[] eriskG = {"0", "50", "100"};
 	
+	private static File fileName;
+	
 	public static void main(String[] args) throws Exception {
 		double priorityWeight=0, probabilityWeight=0, consequenceWeight=0, riskWeight=0, timeWeight = 0.2;
 		double epriorityWeight=0, eprobabilityWeight=0, econsequenceWeight=0, eriskWeight=0;
@@ -72,13 +75,14 @@ public class MainAutoNSGAII {
 							consequenceWeight = consequenceWeight/total * 0.8;
 						}
 						algorithm = new NSGAII(problem);
-						variable = "var"+count;
-						result = "nsgaii"+count;				
-						
-						calculate (problem, timeBudget, timeWeight, priorityWeight, probabilityWeight, consequenceWeight, 0, 0, 0, 0, 0);					
-						run (algorithm, problem, variable, result);
-						findBest.run(result, best, count);
-						
+						for (int x=0;x<10;x++){
+							variable = "var"+count+"_"+x;
+							result = "nsgaii"+count+"_"+x;				
+							
+							calculate (problem, timeBudget, timeWeight, priorityWeight, probabilityWeight, consequenceWeight, 0, 0, 0, 0, 0);					
+							run (algorithm, problem, variable, result);
+							findBest.run(result, best, count);
+						}
 						if (total == 0){
 							priorityWeight = 0;
 							probabilityWeight = 0;
@@ -100,20 +104,21 @@ public class MainAutoNSGAII {
 				riskWeight = Double.parseDouble(riskG[j]);
 				double total = priorityWeight + riskWeight;
 				if (total == 0){
-					priorityWeight = 0.5;
-					riskWeight = 0.5;							
+					priorityWeight = 0.4;
+					riskWeight = 0.4;							
 				}else{
 					priorityWeight = priorityWeight/total * 0.8;
 					riskWeight = riskWeight/total * 0.8;
 				}
 				algorithm = new NSGAII(problem);
-				variable = "var"+count;
-				result = "nsgaii"+count;
-
-				calculate (problem, timeBudget, timeWeight, priorityWeight, 0, 0, riskWeight, 0, 0, 0, 0);				
-				run (algorithm, problem, variable, result);
-				findBest.run(result, best, count);
-				
+				for (int x=0;x<10;x++){
+					variable = "var"+count+"_"+x;
+					result = "nsgaii"+count+"_"+x;
+	
+					calculate (problem, timeBudget, timeWeight, priorityWeight, 0, 0, riskWeight, 0, 0, 0, 0);				
+					run (algorithm, problem, variable, result);
+					findBest.run2(result, best, count);
+				}
 				if (total == 0){
 					priorityWeight = 0;
 					riskWeight = 0;	
@@ -146,13 +151,14 @@ public class MainAutoNSGAII {
 						econsequenceWeight = econsequenceWeight/total * 0.8;
 					}
 					algorithm = new NSGAII(problem);
-					variable = "2var"+count;
-					result = "2nsgaii"+count;		
-					
-					calculate (problem, timeBudget, timeWeight, 0, 0, 0, 0, epriorityWeight, eprobabilityWeight, econsequenceWeight, 0);
-					run (algorithm, problem, variable, result);
-					findBest.run(result, best, count);
-					
+					for (int x=0;x<10;x++){
+						variable = "2var"+count+"_"+x;
+						result = "2nsgaii"+count+"_"+x;		
+						
+						calculate (problem, timeBudget, timeWeight, 0, 0, 0, 0, epriorityWeight, eprobabilityWeight, econsequenceWeight, 0);
+						run (algorithm, problem, variable, result);
+						findBest.run(result, best, count);
+					}
 					if (total == 0){
 						epriorityWeight = 0;
 						eprobabilityWeight = 0;
@@ -181,13 +187,14 @@ public class MainAutoNSGAII {
 					eriskWeight = eriskWeight/total * 0.8;
 				}
 				algorithm = new NSGAII(problem);
-				variable = "2var"+count;
-				result = "2nsgaii"+count;
-				
-				calculate (problem, timeBudget, timeWeight, 0, 0, 0, 0, epriorityWeight, 0, 0, eriskWeight);
-				run (algorithm, problem, variable, result);
-				findBest.run(result, best, count);
-				
+				for (int x=0;x<10;x++){
+					variable = "2var"+count+"_"+x;
+					result = "2nsgaii"+count+"_"+x;
+					
+					calculate (problem, timeBudget, timeWeight, 0, 0, 0, 0, epriorityWeight, 0, 0, eriskWeight);
+					run (algorithm, problem, variable, result);
+					findBest.run2(result, best, count);
+				}
 				if (total == 0){
 					epriorityWeight = 0;
 					eriskWeight = 0;		
@@ -272,5 +279,15 @@ public class MainAutoNSGAII {
 		population.printObjectivesToFile(result);
 	
 	} //main
+	 
+		public  static void createFileTime(int count) throws Exception{
+			fileName = new File(count+"nsgaii" +" time.txt");
+			
+
+			// if file does not exists, then create it
+			if (!fileName.exists()) {
+				fileName.createNewFile();
+			}
+		}
 	
 }

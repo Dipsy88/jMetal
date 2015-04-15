@@ -71,6 +71,37 @@ public class FindBestFitnessValue {
 		
 	}
 	
+	public static void run2(String inputFile, String out, int count) throws Exception{		
+		createFile(out);
+		FileWriter fw = new FileWriter(fileName.getAbsoluteFile(), true);
+		file = new BufferedWriter(fw);
+		
+
+		int i=0;
+		double bestFitness = 1;
+		try {
+		    BufferedReader in = new BufferedReader(new FileReader(inputFile));
+		  
+		    String str;
+		    
+		    while ((str = in.readLine()) != null){
+//		    	if (i==1000)
+//		    		break;
+		    	String line = str;
+		    	String[] details = line.split(" ");
+		    	
+		    	if (bestFitness>Double.parseDouble(details[3]))
+		    		bestFitness = Double.parseDouble(details[3]);
+
+		    }
+		    file.write(count + " Best fitness is " + bestFitness + "\n");
+	    	file.flush();
+		    in.close();
+		} catch (IOException e) {
+		}
+		
+	}
+	
 	public static void createFile(String out) throws Exception{
 		fileName = new File(out);	
 
